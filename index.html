@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<title>web page</title>
+<meta charset="utf-8">    
+<meta name="viewport" content="width=device-width">
+<style>
+    * { margin: 0; padding: 0; list-style: none}
+    .selected { background: pink}
+    .main { padding-left: 10em; overflow: hidden}
+    .side-bar { float:left}
+    .wrap { max-width: 800px; margin: auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="side-bar">
+    <ul>
+      <li><a href="#javascript">javascript</a></li>
+      <li><a href="#php">php</a></li>
+      <li><a href="#java">java</a></li>
+      <li><a href="#python">python</a></li>
+      <li><a href="#ruby">ruby</a></li>
+      <li><a href="#perl">perl</a></li>
+      <li><a href="#objective-c">objective-c</a></li>
+      <li><a href="#swift">swift</a></li>
+      <li><a href="#go">go</a></li>
+      <li><a href="#c">c</a></li>
+      <li><a href="#c++">c++</a></li>
+    </ul>
+  </div>
+  <div class="main">
+    <div data-tag="javascript,python,ruby">javascript,python</div>
+    <div data-tag="objective-c,php,ruby">objective-c,php,ruby</div>
+    <div data-tag="perl,php,python,ruby">perl, php, python, ruby</div>
+    <div data-tag="ruby,c,java">ruby,c,java</div>
+    <div data-tag="ruby,java,php,javascript">ruby,java,php,javascript</div>
+    <div data-tag="objective-c,php">objective-c,php</div>
+    <div data-tag="ruby,c++">ruby,c++</div>
+    <div data-tag="python,php">python,php</div>
+    <div data-tag="c++,javascript,go">c++,javascript,go</div>
+    <div data-tag="c++,c,ruby">c++,c</div>
+    <div data-tag="swift,c">swift,c</div>
+    <div data-tag="swift,go,ruby">swift,go,ruby</div>
+    <div data-tag="java,php,c++">java,php,c++</div>
+    <div data-tag="go,perl,javascript">go,perl,javascript</div>
+    <div data-tag="ruby,go,objective-c">ruby,go,objetive-c</div>
+  </div>
+</div>
+<script>
+//filter tag;
+(function() {
+
+  var arr = [];
+  var el = document.querySelectorAll('a');
+  var list = document.querySelectorAll('[data-tag]');
+
+  function clickHandler() {
+    var that = this;
+    var tag = this.hash.slice(1);
+    var hash = location.hash;
+    if (!hash.length) {
+      arr.pop();
+    }
+    if (arr.indexOf(tag) < 0) {
+      arr.push(tag);
+      this.classList.add('selected');
+    } else {
+      arr.forEach(function(el, i) {
+        if (el === tag) {
+          arr.splice(i, 1);
+          that.classList.remove('selected');
+          return false;
+        }
+      });
+    }
+    location.hash = arr.join(',');
+    return false;
+
+  }
+
+  function clickTagsMenu() {
+    [].forEach.call(el, function(el) {
+      el.onclick = clickHandler;
+    });
+  }
+
+
+  function compareArray(a, b) {
+    var result = !0;
+    if (a === undefined)
+      return;
+    if (b === undefined)
+      return;
+    b.forEach(function(el) {
+      if (a.indexOf(el) === -1) {
+        result = !1;
+      }
+    });
+    return result;
+  }
+
+
+  function filterTags() {
+    var hash = location.hash;
+    var hashArray = hash.substring(hash.indexOf('#') + 1).split(',');
+    arr = hashArray;
+    [].forEach.call(list, function(el) {
+      var tag = el.getAttribute('data-tag').split(',');
+      if (!hash.length) {
+        el.style.display = '';
+      } else if (compareArray(tag, arr)) {
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+    [].forEach.call(el, function(el) {
+      if (!hash.length) {
+        el.classList.remove('selected');
+      }
+      if (arr.indexOf(el.hash.slice(1)) === -1) {
+        el.classList.remove('selected');
+      } else {
+        el.classList.add('selected');
+      }
+    });
+
+  }
+  clickTagsMenu();
+
+  window.onload = window.onhashchange = filterTags;
+
+})();
+</script>
+</body>
+</html>
