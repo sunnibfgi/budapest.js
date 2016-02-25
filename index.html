@@ -56,7 +56,6 @@
   var list = document.querySelectorAll('[data-tag]');
 
   function clickHandler() {
-    var that = this;
     var tag = this.hash.slice(1);
     var hash = location.hash;
     if (!hash.length) {
@@ -66,17 +65,23 @@
       arr.push(tag);
       this.classList.add('selected');
     } else {
-      arr.forEach(function(el, i) {
-        if (el === tag) {
-          arr.splice(i, 1);
-          that.classList.remove('selected');
-          return false;
-        }
+      spliceArray(arr, {
+        o: this,
+        tag: tag
       });
     }
     location.hash = arr.join(',');
     return false;
+  }
 
+  function spliceArray(arr, opts) {
+    arr.forEach(function(el, i) {
+      if (el === opts.tag) {
+        arr.splice(i, 1);
+        opts.o.classList.remove('selected');
+        return false;
+      }
+    });
   }
 
   function clickTagsMenu() {
@@ -128,11 +133,12 @@
     });
 
   }
+    
   clickTagsMenu();
-
   window.onload = window.onhashchange = filterTags;
 
 })();
+    
 </script>
 </body>
 </html>
