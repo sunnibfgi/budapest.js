@@ -85,7 +85,6 @@
     });
   }
 
-
   function compareArray(a, b) {
     var result = !0;
     if (a === undefined)
@@ -93,13 +92,15 @@
     if (b === undefined)
       return;
     b.forEach(function(el) {
+      if (el === '') {
+        return result;
+      }
       if (a.indexOf(el) === -1) {
         result = !1;
       }
     });
     return result;
   }
-
 
   function filterTags() {
     var hash = location.hash;
