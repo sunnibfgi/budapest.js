@@ -1,32 +1,56 @@
 <!doctype html>
 <html>
+
 <head>
-<title>web page</title>
-<meta charset="utf-8">    
-<meta name="viewport" content="width=device-width">
-<style>
-    * { margin: 0; padding: 0; list-style: none}
-    .selected { background: pink}
-    .main { padding-left: 10em; overflow: hidden}
-    .side-bar { float:left}
-    .wrap { max-width: 800px; margin: auto}
-</style>
+  <title>web page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none
+    }
+    
+    .selected {
+      background: pink
+    }
+    
+    .main {
+      padding-left: 10em;
+      overflow: hidden
+    }
+    
+    .side-bar {
+      float: left
+    }
+    
+    .wrap {
+      max-width: 800px;
+      margin: auto
+    }
+    
+    .side-bar span {
+      cursor: pointer
+    }
+  </style>
 </head>
+
 <body>
 <div class="wrap">
   <div class="side-bar">
     <ul>
-      <li><a href="#javascript">javascript</a></li>
-      <li><a href="#php">php</a></li>
-      <li><a href="#java">java</a></li>
-      <li><a href="#python">python</a></li>
-      <li><a href="#ruby">ruby</a></li>
-      <li><a href="#perl">perl</a></li>
-      <li><a href="#objective-c">objective-c</a></li>
-      <li><a href="#swift">swift</a></li>
-      <li><a href="#go">go</a></li>
-      <li><a href="#c">c</a></li>
-      <li><a href="#c++">c++</a></li>
+      <li><span>javascript</span></li>
+      <li><span>php</span></li>
+      <li><span>java</span></li>
+      <li><span>python</span></li>
+      <li><span>ruby</span></li>
+      <li><span>perl</span></li>
+      <li><span>objective-c</span></li>
+      <li><span>swift</span></li>
+      <li><span>go</span></li>
+      <li><span>c</span></li>
+      <li><span>c++</span></li>
     </ul>
   </div>
   <div class="main">
@@ -48,15 +72,16 @@
   </div>
 </div>
 <script>
-//filter tag;
+// filter tag;
+// test in chrome,firefox,opera and safari modern　
 (function() {
 
   var arr = [];
-  var el = document.querySelectorAll('a');
+  var el = document.querySelectorAll('span');
   var list = document.querySelectorAll('[data-tag]');
 
   function clickHandler() {
-    var tag = this.hash.slice(1);
+    var tag = this.innerText;
     var hash = location.hash;
     if (!hash.length) {
       arr.pop();
@@ -70,7 +95,6 @@
       });
     }
     location.hash = arr.join(',');
-    return false;
   }
 
   function spliceArray(arr, opts) {
@@ -113,7 +137,7 @@
       var tag = el.getAttribute('data-tag').split(',');
       if (!hash.length) {
         el.style.display = '';
-      } else if (compareArray(tag, arr)) {
+      } else if (compareArray(tag, hashArray)) {
         el.style.display = 'block';
       } else {
         el.style.display = 'none';
@@ -123,20 +147,18 @@
       if (!hash.length) {
         el.classList.remove('selected');
       }
-      if (arr.indexOf(el.hash.slice(1)) === -1) {
+      if (arr.indexOf(el.innerText) === -1) {
         el.classList.remove('selected');
       } else {
         el.classList.add('selected');
       }
     });
-
   }
-    
+
   clickTagsMenu();
   window.onload = window.onhashchange = filterTags;
-
 })();
-    
+
 </script>
 </body>
 </html>
