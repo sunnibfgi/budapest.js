@@ -39,7 +39,7 @@
     <div data-tag="ruby,c++">ruby,c++</div>
     <div data-tag="python,php">python,php</div>
     <div data-tag="c++,javascript,go">c++,javascript,go</div>
-    <div data-tag="c++,c,ruby">c++,c</div>
+    <div data-tag="c++,c,ruby">c++,c,ruby</div>
     <div data-tag="swift,c">swift,c</div>
     <div data-tag="swift,go,ruby">swift,go,ruby</div>
     <div data-tag="java,php,c++">java,php,c++</div>
@@ -63,7 +63,6 @@
     }
     if (arr.indexOf(tag) < 0) {
       arr.push(tag);
-      this.classList.add('selected');
     } else {
       spliceArray(arr, {
         o: this,
@@ -78,7 +77,6 @@
     arr.forEach(function(el, i) {
       if (el === opts.tag) {
         arr.splice(i, 1);
-        opts.o.classList.remove('selected');
         return false;
       }
     });
