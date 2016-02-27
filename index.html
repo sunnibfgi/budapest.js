@@ -98,7 +98,7 @@
   }
 
   function spliceArray(arr, opts) {
-    arr.forEach(function(el, i) {
+    forEach(arr, function(el, i) {
       if (el === opts.tag) {
         arr.splice(i, 1);
         return false;
@@ -107,7 +107,7 @@
   }
 
   function clickTagsMenu() {
-    [].forEach.call(el, function(el) {
+    forEach(el, function(el) {
       el.onclick = clickHandler;
     });
   }
@@ -118,14 +118,13 @@
       return;
     if (b === undefined)
       return;
-    b.forEach(function(el) {
-      if (el === '') {
-        return result;
-      }
+    forEach(b, function(el, i) {
+      if (!el) return result;
       if (a.indexOf(el) === -1) {
         result = !1;
       }
     });
+
     return result;
   }
 
@@ -133,7 +132,7 @@
     var hash = location.hash;
     var hashArray = hash.substring(hash.indexOf('#') + 1).split(',');
     arr = hashArray;
-    [].forEach.call(list, function(el) {
+    forEach(list, function(el) {
       var tag = el.getAttribute('data-tag').split(',');
       if (!hash.length) {
         el.style.display = '';
@@ -143,7 +142,7 @@
         el.style.display = 'none';
       }
     });
-    [].forEach.call(el, function(el) {
+    forEach(el, function(el) {
       if (!hash.length) {
         el.classList.remove('selected');
       }
@@ -153,6 +152,19 @@
         el.classList.add('selected');
       }
     });
+
+  }
+
+  function forEach(arr, fn) {
+    if (typeof arr.forEach === 'function') {
+      return arr.forEach(fn);
+    }
+    for (var i = 0; i < arr.length; i++) {
+      if (fn(arr[i], i, arr) === false) {
+        break;
+      }
+    }
+    return;
   }
 
   clickTagsMenu();
