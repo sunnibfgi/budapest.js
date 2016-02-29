@@ -54,21 +54,21 @@
     </ul>
   </div>
   <div class="main">
-    <div data-tag="javascript,python,ruby">javascript,python,ruby</div>
+    <div data-tag="javascript,python,ruby,objective-c">javascript,python,ruby,objective-c</div>
     <div data-tag="objective-c,php,ruby">objective-c,php,ruby</div>
-    <div data-tag="perl,php,python,ruby">perl, php, python, ruby</div>
+    <div data-tag="perl,php,python">perl,php, python</div>
     <div data-tag="ruby,c,java">ruby,c,java</div>
-    <div data-tag="ruby,java,php,javascript">ruby,java,php,javascript</div>
+    <div data-tag="java,php,javascript">java,php,javascript</div>
     <div data-tag="objective-c,php">objective-c,php</div>
-    <div data-tag="ruby,c++">ruby,c++</div>
+    <div data-tag="ruby,c++,go">ruby,c++,go</div>
     <div data-tag="python,php">python,php</div>
     <div data-tag="c++,javascript,go">c++,javascript,go</div>
-    <div data-tag="c++,c,ruby">c++,c,ruby</div>
-    <div data-tag="swift,c">swift,c</div>
+    <div data-tag="c++,c,ruby,javascript">c++,c,ruby,javascript</div>
+    <div data-tag="swift,java,perl,objective-c">swift,java,perl,objective-c</div>
     <div data-tag="swift,go,ruby">swift,go,ruby</div>
     <div data-tag="java,php,c++">java,php,c++</div>
-    <div data-tag="go,perl,javascript">go,perl,javascript</div>
-    <div data-tag="ruby,go,objective-c">ruby,go,objetive-c</div>
+    <div data-tag="php,go,perl,javascript">php,go,perl,javascript</div>
+    <div data-tag="swift,objective-c,go">swift,objetive-c,go</div>
   </div>
 </div>
 <script>
@@ -131,16 +131,16 @@
   function filterTags() {
     var hash = location.hash;
     var hashArray = hash.substring(hash.indexOf('#') + 1).split(',');
+    var status = '';
     arr = hashArray;
     forEach(list, function(el) {
       var tag = el.getAttribute('data-tag').split(',');
-      if (!hash.length) {
-        el.style.display = '';
-      } else if (compareArray(tag, hashArray)) {
-        el.style.display = 'block';
+      if (compareArray(tag, hashArray)) {
+        status = 'block';
       } else {
-        el.style.display = 'none';
+        status = 'none';
       }
+      el.style.display = status;
     });
     forEach(el, function(el) {
       if (!hash.length) {
