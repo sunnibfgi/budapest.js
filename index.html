@@ -143,7 +143,7 @@
       el.style.display = status;
     });
     forEach(el, function(el) {
-      if (!hash.length) {
+      if (!status) {
         el.classList.remove('selected');
       }
       if (arr.indexOf(el.innerText) === -1) {
